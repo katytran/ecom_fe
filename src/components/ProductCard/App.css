@@ -1,0 +1,38 @@
+.product-card {
+  /* border: 1px solid black; */
+  width: 180px;
+}
+.product-card {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+    Helvetica, Arial, "Lucida Grande", sans-serif;
+  /* font-weight: 300; */
+}
+.product-card--wrapper {
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.product-card--wrapper > img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100px;
+  max-height: 100px;
+  height: auto;
+  width: auto;
+}
+
+.product-card--wrapper .product-card-img-hover {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s linear;
+}
+
+.product-card--wrapper:hover .product-card-img-hover {
+  visibility: visible;
+  opacity: 1;
+  cursor: pointer;
+}

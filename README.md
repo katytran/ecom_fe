@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Project Brief: EMBECA 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EMBECA is an e-commerce platform that offers personal care and beauty products.
 
-## Available Scripts
+###  Plan
 
-In the project directory, you can run:
+- User:
+    - Create, update an account 
+    - Login email, oAuth with Facebook and Google
+    - Review products
+    - Create, update blogs, comments in the beauty review section
+    - Stripe payment implementation
 
-### `npm start`
+- Product:
+    - Producy detail page (zoom in feauture, price, brand, ingredients)
+    - Product reviews and ratings
+    - Product pagination
+    - Product search feature
+    - Product cart
+    - Product categories
+    - Search by categories
+    - Sort by highest, lowest rating, most helpful 
+   
+- Admin: 
+    - Admin Create, Read, Update, and Delete PRODUCT/ ORDER/ REVIEWS
+    - User management
+    - Check products as shipped
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+### Models
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Product
+    - Name
+    - Description
+    - Price
+    - Ingredients
+    - Category
+    - Images
+    - Reviews
+        - Rating
+        - Comment
+    - Rating Average
+    - NumReviews
+    - NumSales
+    - CountInStock
+    - isDeleted flag
+    
+- User
+    - name
+    - email
+    - password
+    - role (admin or user)
+    - isDeleted flag
+    
+- Order
+    - User ID
+    - products 
+    - shipping
+        - address
+        - city
+        - district
+        - ward
+        - country
+        - postal code
+    - total price
+    - payment method
+    - payment results
+    - shipping price
+    - isPaid flag
+    - paidAt (date)
+    - isDeliveredFlag
+    - deliveredAt (date)
+    - isDeleted flag
+  
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### **Week 1: by friday 26 2021 (e-com)
+- Homepage, detail product page, checkout page
+- User can register and login, oauth implemetation
+- User can search for products
+- User can filter products by categories, skin type
+- User can add products to cart
+- User can add products to favorite list
+- Only purchase verified user can rate and post review
+- User can rate review helpful. 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Producy detail page (zoom in feauture, price, brand, ingredients)
+  - Sort by highest, lowest rating, most helpful 
+  
+- Checkout Page
+    - Stripe implemation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Admin Create, Read, Update, and Delete PRODUCT/ ORDER/ REVIEWS
+- User management
 
-### `npm run eject`
+#### **Week 2: social beauty blog site
+- Homepage, detail blog page
+- User can post a beauty blog
+- User can search for blog and QA
+- User can filter blogs by most helpful, popular blogs,
+- User can reply, react to people's blog
+- User can add a blog to saved list
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Blog detail page-
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+- Chat between users
+- Chat bot
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
