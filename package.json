@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "hamburger-react": "^2.4.0",
+    "history": "^5.0.0",
     "mdb-react-ui-kit": "^1.0.0-alpha4",
     "mdbreact": "^5.0.1",
     "moment": "^2.29.1",
