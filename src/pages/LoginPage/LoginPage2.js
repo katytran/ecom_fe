@@ -21,13 +21,11 @@ function LoginPage2() {
   let navigate = useNavigate();
   const oauthLogin = async (user, authProvider) => {
     const access_token = user.accessToken;
-    const url = `/api/auth/login/${authProvider}`;
+    const url = `/auth/login/${authProvider}`;
     const res = await api.post(url, { access_token, user });
-    const newUser = res.data.user;
+    const newUser = res.data.data.user;
     if (newUser) {
-      newUser.authenticated = true;
-      newUser.provider = authProvider;
-      setUser(newUser);
+      dispatch(authActions.getCurrentUser(localStorage.getItem("token")));
     }
   };
   //  const [toggle, setToggle] = useState(false)
@@ -114,6 +112,14 @@ function LoginPage2() {
                 callback={(u) => oauthLogin(u, "facebook")}
                 onFailure={() => console.log("Facebook Login Failure")}
               />
+
+              <GoogleLogin
+                clientId={GOOGLE_CLIENT_ID}
+                buttonText="Login with Google"
+                onSuccess={(u) => oauthLogin(u, "google")}
+                onFailure={() => console.log("Google Login Failure")}
+              />
+
               <a hreft="#" class="social">
                 <FontAwesomeIcon icon={faFacebookF}></FontAwesomeIcon>
               </a>

@@ -10,6 +10,9 @@ import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import authActions from "../redux/actions/auth.actions";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const PublicNavbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -21,14 +24,59 @@ const PublicNavbar = () => {
     dispatch(authActions.logout());
   };
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   // useEffect(() => {}, [hide]);
   const [isOpen, setOpen] = useState(false);
   const authLinks = (
     <Nav>
-      <Nav.Link as={Link} to="/admin/profile">
-        {user?.email}
+      {/* <Nav.Link as={Link} to="/admin/profile">
+       
+      </Nav.Link> */}
+      <Nav.Link>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+          style={{
+            color: "white",
+            fontSize: "medium",
+            padding: "0px 0px",
+            margin: "0px 0px",
+            letterSpacing: "2px",
+          }}
+        >
+          {user?.name}
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
       </Nav.Link>
-      <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+
+      <Nav.Link as={Link} to="/cart">
+        <Badge badgeContent={2} color="secondary">
+          <FontAwesomeIcon
+            icon={faShoppingBasket}
+            style={{ fontSize: "25px" }}
+          />
+        </Badge>
+      </Nav.Link>
     </Nav>
   );
   const publicLinks = (

@@ -4,7 +4,7 @@ const initialState = {
   products: [],
   totalPageNum: 1,
   selectedProduct: null,
-  loading: true,
+  loading: false,
 };
 
 const productReducer = (state = initialState, action) => {
