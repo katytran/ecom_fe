@@ -47,7 +47,7 @@ const PublicNavbar = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`?query=${searchTerm}`);
+    navigate(`/?query=${searchTerm}`, { replace: true });
   };
   useEffect(() => {}, [cartTotal]);
   const [isOpen, setOpen] = useState(false);
