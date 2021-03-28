@@ -1,5 +1,6 @@
 import * as types from "../constants/cart.constants";
 const cartItems = JSON.parse(localStorage.getItem("cart"));
+if (!cartItems) cartItems = [];
 const initialState = {
   cartItems: cartItems || [],
   total: cartItems.reduce((total, item) => total + item.qty, 0) || 0,
