@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useHistory } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../images/logo.png";
 import { Badge, Typography } from "@material-ui/core";
 import Hamburger from "hamburger-react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
@@ -9,16 +9,22 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import authActions from "../redux/actions/auth.actions";
+import authActions from "../../redux/actions/auth.actions";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import productActions from "../../redux/actions/product.actions";
+import "./App.css";
 
 const PublicNavbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loading = useSelector((state) => state.auth.loading);
-  const [hide, setHide] = useState(false);
   const user = useSelector((state) => state.auth.user);
+  const cartTotal = useSelector((state) => state.cart.total);
+  const navigate = useNavigate();
+
+  console.log("cart", cartTotal);
+  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(authActions.logout());
@@ -34,7 +40,16 @@ const PublicNavbar = () => {
     setAnchorEl(null);
   };
 
-  // useEffect(() => {}, [hide]);
+  const handleSearch = (e) => {
+    console.log(e.currentTarget.value);
+    setSearchTerm(e.currentTarget.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`?query=${searchTerm}`);
+  };
+  useEffect(() => {}, [cartTotal]);
   const [isOpen, setOpen] = useState(false);
   const authLinks = (
     <Nav>
@@ -70,7 +85,7 @@ const PublicNavbar = () => {
       </Nav.Link>
 
       <Nav.Link as={Link} to="/cart">
-        <Badge badgeContent={2} color="secondary">
+        <Badge badgeContent={cartTotal} color="secondary">
           <FontAwesomeIcon
             icon={faShoppingBasket}
             style={{ fontSize: "25px" }}
@@ -85,7 +100,7 @@ const PublicNavbar = () => {
         LOGIN
       </Nav.Link>
       <Nav.Link as={Link} to="/cart">
-        <Badge badgeContent={2} color="secondary">
+        <Badge badgeContent={cartTotal} color="secondary">
           <FontAwesomeIcon
             icon={faShoppingBasket}
             style={{ fontSize: "25px" }}
@@ -96,9 +111,15 @@ const PublicNavbar = () => {
   );
 
   const input = (
-    <div className="input-wrap">
-      <input type="text" placeholder="Search..." className="input-text"></input>
-    </div>
+    <form className="input-wrap" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="input-text"
+        onChange={handleSearch}
+      ></input>
+      <FontAwesomeIcon className="iconSearch" icon={faSearch} />
+    </form>
   );
 
   return (
@@ -130,9 +151,6 @@ const PublicNavbar = () => {
             </Nav.Link>
             <Nav.Link as={Link} to="/">
               SALE
-            </Nav.Link>
-            <Nav.Link as={Link} to="#" onClick={() => setHide(true)}>
-              <FontAwesomeIcon icon={faSearch} />
             </Nav.Link>
             {input}
           </Nav>

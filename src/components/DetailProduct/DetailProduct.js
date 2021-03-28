@@ -1,4 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import cartActions from "../../redux/actions/cart.actions";
 import { Container, Row, Col } from "react-bootstrap";
 import "./App.css";
 import arrowleft from "../../images/arrowleft.png";
@@ -7,12 +9,23 @@ import arrowright from "../../images/arrowright.png";
 function DetailProduct({ product }) {
   const slider = useRef();
   const featured = useRef();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const [selectedItem, setSelectedItem] = useState(0);
 
-  function determineItemStyle(index) {
+  const determineItemStyle = (index) => {
     const isItemSelected = selectedItem === index;
     return isItemSelected ? "thumbnail active" : "thumbnail";
-  }
+  };
+
+  const handleAddToCart = () => {
+    dispatch(cartActions.addToCart(product));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+  }, [cartItems]);
+
   return (
     <Container>
       <Row>
@@ -85,7 +98,7 @@ function DetailProduct({ product }) {
             aperiam, ex, neque repellendus atque, rerum consequuntur quam facere
             omnis sit dolore at! Dicta expedita modi fugit ut. Nobis, modi.
           </div>
-          <button>Add to cart</button>
+          <button onClick={handleAddToCart}>Add to cart</button>
         </Col>
       </Row>
     </Container>

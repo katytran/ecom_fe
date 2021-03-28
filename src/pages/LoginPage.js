@@ -3,9 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import authActions from "../redux/actions/auth.actions";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
-import FacebookLogin from "react-facebook-login";
-import { GoogleLogin } from "react-google-login";
-import api from "../apiService";
 
 function LoginPage() {
   const [formData, setFormData] = useState({

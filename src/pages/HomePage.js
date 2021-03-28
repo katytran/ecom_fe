@@ -3,9 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import authActions from "../redux/actions/auth.actions";
 import productActions from "../redux/actions/product.actions";
 import { Container, Row, Jumbotron } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProductCard from "../components/ProductCard/ProductCard";
 import DetailProductPage from "../pages/DetailProductPage/DetailProductPage";
+import DotLoader from "react-spinners/DotLoader";
+import { css } from "@emotion/core";
+import queryString from "query-string";
+import store from "../redux/store";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -13,19 +17,38 @@ function HomePage() {
   const products = useSelector((state) => state.products.products);
   const loading = useSelector((state) => state.products.loading);
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const location = useLocation();
+  //=> '?foo=bar'
+  useEffect(() => {
+    const parsed = queryString.parse(location.search);
+    console.log("pa", parsed);
+    if (parsed.query) {
+      dispatch(productActions.getAllProduct(1, 30, parsed.query));
+    } else {
+      dispatch(productActions.getAllProduct());
+    }
+  }, [location]);
+
+  const override = css`
+    color: red;
+  `;
+
+  localStorage.setItem(
+    "cart2",
+    JSON.stringify(store.getState().cart.cartItems)
+  );
 
   useEffect(() => {
     dispatch(authActions.getCurrentUser(accessToken));
   }, [dispatch, accessToken]);
 
-  useEffect(() => {
-    dispatch(productActions.getAllProduct());
-  }, []);
-
   return (
-    <Container className="d-flex justify-content-center">
+    <Container
+      className="d-flex justify-content-center align-items-center "
+      style={{ minHeight: "100vh" }}
+    >
       {loading ? (
-        <h1>isLoading</h1>
+        <DotLoader size={150} css={override} />
       ) : (
         <div>
           <Row>

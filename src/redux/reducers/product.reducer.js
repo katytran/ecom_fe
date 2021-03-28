@@ -5,6 +5,7 @@ const initialState = {
   totalPageNum: 1,
   selectedProduct: null,
   loading: false,
+  selectedloading: false,
 };
 
 const productReducer = (state = initialState, action) => {

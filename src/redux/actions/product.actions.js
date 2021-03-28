@@ -13,7 +13,8 @@ const getAllProduct = (
   try {
     let queryString = "";
     if (query) {
-      queryString = `&title[$regex]=${query}&title[$options]=i`;
+      //queryString = `&name[$regex]=${query}&name[$options]=i&brand[$regex]=${query}&brand[$options]=i`;
+      queryString = query;
     }
 
     let sortByString = "";
@@ -21,7 +22,7 @@ const getAllProduct = (
       sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
     }
     const res = await api.get(
-      `/products?page=${pageNum}&limit=${limit}${queryString}${sortByString}`
+      `/products?page=${pageNum}&limit=${limit}&query=${queryString}${sortByString}`
     );
     dispatch({
       type: types.GET_ALL_PRODUCT_SUCCESS,

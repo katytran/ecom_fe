@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PublicNavbar from "./components/PublicNavbar";
+import PublicNavbar from "./components/PublicNavBar/PublicNavbar";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
@@ -14,6 +14,9 @@ import PrivateRoute from "./routes/PrivateRoute";
 import DetailProductPage from "./pages/DetailProductPage/DetailProductPage";
 function App() {
   //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  useEffect(() => {
+    localStorage.getItem("cart");
+  }, []);
   return (
     <BrowserRouter>
       <PublicNavbar />
