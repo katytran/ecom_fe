@@ -1,5 +1,5 @@
 import * as types from "../constants/cart.constants";
-const cartItems = JSON.parse(localStorage.getItem("cart"));
+let cartItems = JSON.parse(localStorage.getItem("cart"));
 if (!cartItems) cartItems = [];
 const initialState = {
   cartItems: cartItems || [],
