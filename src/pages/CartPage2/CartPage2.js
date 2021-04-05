@@ -1,74 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import CartItem from "../../components/CartItem/CartItem";
-
-// // Components
-// import CartItem from "../components/CartItem";
-
-// // Actions
-// import { addToCart, removeFromCart } from "../redux/actions/cartActions";
-
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import CartProduct from "../../components/CartProduct/CartProduct";
+import cartActions from "../../redux/actions/cart.actions";
+import LoginCheckout from "../LoginPage/LoginCheckout";
 function CartPage2() {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // const cart = useSelector((state) => state.cart);
-  // const { cartItems } = cart;
+  const cart = useSelector((state) => state.cart.cartItems);
 
-  // useEffect(() => {}, []);
+  const getTotalItems = () => {
+    return cart.reduce((qty, item) => Number(item.qty) + qty, 0);
+  };
 
-  // const qtyChangeHandler = (id, qty) => {
-  //   dispatch(addToCart(id, qty));
-  // };
+  const getCartSubTotal = () => {
+    return cart
+      .reduce((price, product) => price + product.price * product.qty, 0)
+      .toFixed(2);
+  };
 
-  // const removeFromCartHandler = (id) => {
-  //   dispatch(removeFromCart(id));
-  // };
+  const handlePopup = () => {
+    isAuthenticated ? navigate("/checkout/shipping") : setOpen(true);
+  };
 
-  // const getCartCount = () => {
-  //   return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0);
-  // };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  // const getCartSubTotal = () => {
-  //   return cartItems
-  //     .reduce((price, item) => price + item.price * item.qty, 0)
-  //     .toFixed(2);
-  // };
+  if (isAuthenticated && open) navigate("/checkout/shipping");
 
   return (
     <>
+      <div className={open ? "open" : "close"}>
+        <button onClick={handleClose} className={open ? "btn_open" : "close"}>
+          x
+        </button>
+        <LoginCheckout />
+      </div>
       <div className="cart_container">
         <div className="cart_container__left">
           <h2>Shopping Cart</h2>
-
-          {/* {cartItems.length === 0 ? (
+          {cart.length === 0 ? (
             <div>
-              Your Cart Is Empty <Link to="/">Go Back</Link>
+              Your basket is currently empty.{" "}
+              <button>
+                <Link to="/">Shop new arrivals</Link>
+              </button>
             </div>
           ) : (
-            cartItems.map((item) => (
-              <CartItem
-                key={item.product}
-                item={item}
-                qtyChangeHandler={qtyChangeHandler}
-                removeHandler={removeFromCartHandler}
-              />
+            cart.map((product) => (
+              <CartProduct key={product._id} product={product} />
             ))
-          )} */}
-          <CartItem />
+          )}
+          <CartProduct />
         </div>
 
         <div className="cart_container__right">
           <div className="cart_container__info">
-            {/* <p>Subtotal ({getCartCount()}) items</p>
-            <p>${getCartSubTotal()}</p> */}
-            <p>Subtotal 2 items</p>
-            <p>2</p>
+            <p>Total: {getTotalItems()} items</p>
+            <p>Subtotal: ${getCartSubTotal()}</p>
+            <p> Tax: TBD </p>
+            <p>Estimated Total: ${getCartSubTotal()}</p>
           </div>
           <div>
-            <button>Proceed To Checkout</button>
+            <button onClick={handlePopup}>Proceed To Checkout</button>
           </div>
         </div>
       </div>

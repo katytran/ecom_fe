@@ -1,0 +1,109 @@
+.review #content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.review .column {
+  width: 600px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.review .wrap {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.review .arrowLeft {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+}
+
+.review .arrowRight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+}
+
+.review #featured {
+  max-width: 300px;
+  max-height: 500px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.review .thumbnail {
+  /* object-fit: fi; */
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  opacity: 0.5;
+  margin: 5px;
+  border: 1px solid white;
+  border-radius: 50%;
+}
+
+.review .thumbnail:hover {
+  opacity: 1;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.review .active {
+  opacity: 1;
+}
+
+.review #slide-wrapper {
+  display: flex;
+  min-height: 100px;
+  align-items: center;
+  justify-content: center;
+}
+
+.review #slider {
+  width: 500px;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.review #slider::-webkit-scrollbar {
+  width: 10px;
+}
+
+.review #slider::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.review #slider::-webkit-scrollbar-thumb {
+  background-color: #dede2e;
+  outline: 1px solid slategrey;
+  border-radius: 100px;
+}
+
+.review #slider::-webkit-scrollbar-thumb:hover {
+  background-color: #18b5ce;
+}
+
+.review .arrow {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.review .arrow:hover {
+  opacity: 0.5;
+  width: 35px;
+  height: 35px;
+}

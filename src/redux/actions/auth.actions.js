@@ -27,7 +27,7 @@ const register = ({ name, email, password }) => async (dispatch) => {
 };
 
 /**Get current user infomation*/
-const getCurrentUser = (accessToken) => async (dispatch) => {
+const getCurrentUser = () => async (dispatch) => {
   dispatch({ type: types.GET_CURRENT_USER_REQUEST, payload: null });
   try {
     const res = await api.get(`/user/me`);
@@ -37,9 +37,24 @@ const getCurrentUser = (accessToken) => async (dispatch) => {
   }
 };
 
+/**Get all user */
+const getAllUser = () => async (dispatch) => {
+  console.log("hehe");
+  dispatch({ type: types.GET_ALL_USER_REQUEST, payload: null });
+  try {
+    const res = await api.get(`/user/all`);
+    dispatch({ type: types.GET_ALL_USER_SUCCESS, payload: res.data.data });
+  } catch (error) {
+    dispatch({ type: types.GET_ALL_USER_FAILURE, payload: error });
+  }
+};
+
 /**log out*/
 const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+  localStorage.removeItem("cart");
+  localStorage.removeItem("shippingAddress");
+
   delete api.defaults.headers.common["Authorization"];
   dispatch({ type: types.LOGOUT_REQUEST, payload: null });
 };
@@ -49,5 +64,6 @@ const authActions = {
   register,
   getCurrentUser,
   logout,
+  getAllUser,
 };
 export default authActions;

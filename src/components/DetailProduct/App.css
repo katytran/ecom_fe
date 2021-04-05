@@ -107,3 +107,41 @@
   width: 35px;
   height: 35px;
 }
+
+.addToCart {
+  display: flex;
+  justify-content: center;
+  padding: 10px 17px;
+  width: 80%;
+  background: #171717;
+  color: #f4f4f4;
+  border: 1px solid #171717;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.progress {
+  background-color: #d8d8d8;
+  border-radius: 20px;
+  margin: 15px 0;
+  height: 15px;
+  width: 200px;
+}
+
+.progress:hover {
+  cursor: pointer;
+}
+
+.progress-done {
+  background: linear-gradient(to left, #f2709c, #ff9472);
+  box-shadow: 0 3px 3px -5px #f2709c, 0 2px 5px #f2709c;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 0;
+  opacity: 0;
+  transition: 1s ease 0.3s;
+}

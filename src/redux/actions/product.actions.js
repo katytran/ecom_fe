@@ -3,12 +3,9 @@ import api from "../../api";
 //import { routeActions } from "./route.actions";
 import { toast } from "react-toastify";
 
-const getAllProduct = (
-  pageNum = 1,
-  limit = 30,
-  query = null,
-  sortBy = null
-) => async (dispatch) => {
+/*const getAllProduct = (pageNum, limit, query, sortBy) => async (dispatch) => {
+  let pageNum = pageNum || 1;
+  let limit = limit || 20;
   dispatch({ type: types.GET_ALL_PRODUCT_REQUEST, payload: null });
   try {
     let queryString = "";
@@ -23,6 +20,38 @@ const getAllProduct = (
     }
     const res = await api.get(
       `/products?page=${pageNum}&limit=${limit}&query=${queryString}${sortByString}`
+    );
+    dispatch({
+      type: types.GET_ALL_PRODUCT_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({ type: types.GET_ALL_PRODUCT_FAILURE, payload: error });
+  }
+}; */
+const getAllProduct = (pageNum, limit, query, sortBy, filter) => async (
+  dispatch
+) => {
+  dispatch({ type: types.GET_ALL_PRODUCT_REQUEST });
+  try {
+    let queryString = "";
+    let filter2 = "";
+    if (query) {
+      //queryString = `&name[$regex]=${query}&name[$options]=i&brand[$regex]=${query}&brand[$options]=i`;
+      queryString = query;
+    }
+
+    let sortByString = "";
+    if (sortBy?.key) {
+      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
+    }
+
+    if (filter) {
+      filter2 = filter;
+    }
+
+    const res = await api.get(
+      `/products?page=${pageNum}&limit=${limit}&query=${queryString}${sortByString}&filter=${filter2}`
     );
     dispatch({
       type: types.GET_ALL_PRODUCT_SUCCESS,
@@ -49,9 +78,14 @@ const getSingleProduct = (productId) => async (dispatch) => {
   }
 };
 
-const addProduct = (name, description, price, categories, images) => async (
-  dispatch
-) => {
+const addProduct = (
+  name,
+  description,
+  brand,
+  price,
+  category,
+  images
+) => async (dispatch) => {
   dispatch({ type: types.ADD_PRODUCT_REQUEST, payload: null });
   try {
     // For uploading file manually
@@ -70,8 +104,9 @@ const addProduct = (name, description, price, categories, images) => async (
     const res = await api.post("/products/add", {
       name,
       description,
+      brand,
       price,
-      categories,
+      category,
       images,
     });
 
@@ -133,5 +168,7 @@ const productActions = {
   getAllProduct,
   addProduct,
   getSingleProduct,
+  updateproduct,
+  deleteproduct,
 };
 export default productActions;

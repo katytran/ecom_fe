@@ -1,9 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import "./app.css";
 import { useSelector, useDispatch } from "react-redux";
 import authActions from "../../redux/actions/auth.actions";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF } from "@fortawesome/free-brands-svg-icons";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -17,7 +15,6 @@ const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 function LoginPage2() {
   const containerRef = useRef();
-  const [user, setUser] = useState({});
   let navigate = useNavigate();
   const oauthLogin = async (user, authProvider) => {
     const access_token = user.accessToken;
@@ -25,16 +22,9 @@ function LoginPage2() {
     const res = await api.post(url, { access_token, user });
     const newUser = res.data.data.user;
     if (newUser) {
-      dispatch(authActions.getCurrentUser(localStorage.getItem("token")));
+      dispatch(authActions.getCurrentUser());
     }
   };
-  //  const [toggle, setToggle] = useState(false)
-  //   // const containerRef = useCallback((node) => {
-  //   //   if (node !== null) {
-  //   //     const containerNode = containerRef.current;
-  //   //   }
-  //   // }, []);
-  //<button onClick={()=> setToggle(!toggle)} className={`classes old calsslsl ${classes}`}>Toggle Me!</button>
 
   const signUp = () => {
     containerRef.current.classList.add("right-panel-active");
@@ -55,7 +45,7 @@ function LoginPage2() {
 
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const loading = useSelector((state) => state.auth.loading);
+  //const loading = useSelector((state) => state.auth.loading);
   //const classes = toggle ? "abc" : "123";
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -73,9 +63,9 @@ function LoginPage2() {
   if (isAuthenticated) navigate("/");
 
   return (
-    <div class="FormLogin">
-      <div class="container" ref={containerRef} id="container">
-        <div class="form-container sign-up-container">
+    <div className="FormLogin">
+      <div className="container" ref={containerRef} id="container">
+        <div className="form-container sign-up-container">
           <form action="#">
             <h1>Create Account</h1>
 
@@ -101,11 +91,15 @@ function LoginPage2() {
             <button>Sign Up</button>
           </form>
         </div>
-        <div class="form-container sign-in-container">
+        <div className="form-container sign-in-container">
           <form action="#" onSubmit={handleSubmit}>
             <h1>Sign in</h1>
-            <div class="social-container">
+            <div className="social-container">
               <FacebookLogin
+                style={{
+                  border: "1px solid transparent",
+                  borderRadius: "40px",
+                }}
                 appId={FB_APP_ID}
                 icon="fa-facebook"
                 fields="name,email,picture"
@@ -114,18 +108,24 @@ function LoginPage2() {
               />
 
               <GoogleLogin
+                style={{
+                  height: "38px",
+                  width: "260px",
+                  marginTop: "10px !important",
+                  paddingLeft: "20px",
+                }}
                 clientId={GOOGLE_CLIENT_ID}
                 buttonText="Login with Google"
                 onSuccess={(u) => oauthLogin(u, "google")}
                 onFailure={() => console.log("Google Login Failure")}
               />
 
-              <a hreft="#" class="social">
+              {/*     <a hreft="#" className="social">
                 <FontAwesomeIcon icon={faFacebookF}></FontAwesomeIcon>
               </a>
-              <a href="#" class="social">
+              <a href="#" className="social">
                 <FontAwesomeIcon icon={faGoogle} />
-              </a>
+            </a> */}
             </div>
             <span>or use your account</span>
             <input
@@ -151,19 +151,19 @@ function LoginPage2() {
             <button>Sign In</button>
           </form>
         </div>
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-panel overlay-left">
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
               <h1>Already a EMBECA member?</h1>
               <p>Explore Top Brands & Add Best-Selling Products to Your Look</p>
-              <button class="ghost" id="signIn" onClick={() => signIn()}>
+              <button className="ghost" id="signIn" onClick={() => signIn()}>
                 Sign In
               </button>
             </div>
-            <div class="overlay-panel overlay-right">
+            <div className="overlay-panel overlay-right">
               <h1>New to EMBECA?</h1>
-              <p>Sign up! It's quick and easy</p>
-              <button class="ghost" id="signUp" onClick={() => signUp()}>
+              <p>{`Sign up! It's quick and easy`}</p>
+              <button className="ghost" id="signUp" onClick={() => signUp()}>
                 Sign Up
               </button>
             </div>
@@ -171,15 +171,15 @@ function LoginPage2() {
         </div>
       </div>
 
-      {/* <div class="container" id="container">
-        <div class="form-container sign-in-container">
+      {/* <div className="container" id="container">
+        <div className="form-container sign-in-container">
           <form action="#">
             <h1>Sign in</h1>
-            <div class="social-container">
-              <a href="#" class="social">
+            <div className="social-container">
+              <a href="#" className="social">
                 <FontAwesomeIcon icon={faFacebookF} />
               </a>
-              <a href="#" class="social">
+              <a href="#" className="social">
                 <FontAwesomeIcon icon={faGithub} />
               </a>
             </div>
@@ -190,12 +190,12 @@ function LoginPage2() {
             <button>Sign In</button>
           </form>
         </div>
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-panel overlay-right">
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-right">
               <h1>Hello, Friend!</h1>
               <p>Enter your personal details and start journey with us</p>
-              <button class="ghost" id="signUp">
+              <button className="ghost" id="signUp">
                 Sign Up
               </button>
             </div>

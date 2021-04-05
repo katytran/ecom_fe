@@ -1,6 +1,7 @@
 import * as types from "../constants/auth.constants";
 const initialState = {
   user: {},
+  users: [],
   isAuthenticated: null,
   loading: false,
   messages: [],
@@ -12,6 +13,7 @@ const authReducer = (state = initialState, action) => {
 
   switch (type) {
     case types.LOGIN_REQUEST:
+    case types.GET_ALL_USER_REQUEST:
       return { ...state, loading: true };
     case types.LOGIN_SUCCESS:
       return {
@@ -20,7 +22,6 @@ const authReducer = (state = initialState, action) => {
         accessToken: payload.accessToken,
         loading: false,
         isAuthenticated: true,
-        accessToken: payload.accessToken,
       };
     case types.LOGIN_FAILURE:
       return { ...state, loading: false, isAuthenticated: false };
@@ -41,6 +42,14 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         isAuthenticated: true,
       };
+    case types.GET_ALL_USER_SUCCESS:
+      return {
+        ...state,
+        users: payload.users,
+        loading: false,
+      };
+    case types.GET_ALL_USER_SUCCESS:
+      return { ...state, loading: false };
     case types.GET_CURRENT_USER_FAILURE:
       return { ...state, loading: false, isAuthenticated: false };
 

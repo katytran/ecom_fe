@@ -1,11 +1,13 @@
 import * as types from "../constants/product.constants";
 
 const initialState = {
+  // all products
   products: [],
-  totalPageNum: 1,
-  selectedProduct: null,
   loading: false,
-  selectedloading: false,
+  totalPages: null,
+
+  //single product
+  selectedProduct: null,
 };
 
 const productReducer = (state = initialState, action) => {
@@ -23,7 +25,7 @@ const productReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         products: payload.requestedProducts,
-        totalPageNum: payload.totalPages,
+        totalPages: payload.totalPages,
       };
 
     case types.GET_SINGLE_PRODUCT_SUCCESS:

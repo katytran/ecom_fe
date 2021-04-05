@@ -5,12 +5,12 @@
 }
 
 .FormLogin {
-  background: #f6f5f7;
+  /* background: #f6f5f7; */
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   height: 100vh;
   margin: -20px 0 50px;
 }
@@ -161,6 +161,14 @@
 
 .FormLogin .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
+}
+
+.pagination_color {
+  background: linear-gradient(
+    90deg,
+    hsla(298, 68%, 90%, 1) 0%,
+    hsla(30, 82%, 91%, 1) 100%
+  );
 }
 
 .FormLogin .overlay {
