@@ -8,7 +8,7 @@ function ProductCard({ product }) {
   const arrayPicture = ProductPicture(product.category.name);
   let navigate = useNavigate();
   const handleClick = () => {
-    navigate(`products/${product._id}`, { replace: true });
+    navigate(`/products/${product._id}`, { replace: true });
   };
   return (
     <Col>

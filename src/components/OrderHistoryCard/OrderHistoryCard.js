@@ -40,7 +40,7 @@ function OrderHistoryCard() {
             </div>
             {
               <Link
-                to={`/makeup/products/${product._id}`}
+                to={`/products/${product._id}`}
                 className="cartproduct__name"
               >
                 <p>{product.name}</p>

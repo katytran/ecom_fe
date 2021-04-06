@@ -1,0 +1,20 @@
+.category_nav {
+  font-size: 25px;
+  letter-spacing: 1px;
+  margin: 10px 10px;
+  font-weight: bold;
+}
+
+.category_nav li {
+  font-size: 15px;
+  letter-spacing: 1px;
+  margin: 10px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  list-style-type: none;
+}
+.category_wrapper {
+  border-right: solid 2px black;
+  width: 90%;
+  height: 100%;
+}

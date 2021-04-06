@@ -21,6 +21,7 @@ import OrderHistoryCard from "./components/OrderHistoryCard/OrderHistoryCard";
 import Dashboard from "./components/Admin/Dashboard";
 import MakeupPage from "./pages/MakeupPage/MakeupPage";
 import ReviewProduct from "./components/ReviewProduct.js/ReviewProduct";
+import SkincarePage from "./pages/SkincarePage/SkincarePage";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,10 +39,8 @@ function App() {
         <Route path="/cart" element={<CartPage2 />} />
         <Route path="/makeup" element={<MakeupPage />} />
 
-        <Route
-          path="makeup/products/:productId"
-          element={<DetailProductPage />}
-        />
+        <Route path="/products/:productId" element={<DetailProductPage />} />
+        <Route path="/skincare" element={<SkincarePage />} />
 
         <Route path="addReview/product/:id" element={<ReviewProduct />} />
         <Route path="/checkout/shipping" element={<AddressForm />} />

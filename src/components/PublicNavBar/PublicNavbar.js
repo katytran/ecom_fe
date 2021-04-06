@@ -169,7 +169,7 @@ const PublicNavbar = () => {
             <Nav.Link as={Link} to="/makeup">
               MAKEUP
             </Nav.Link>
-            <Nav.Link as={Link} to="/">
+            <Nav.Link as={Link} to="/skincare">
               SKINCARE
             </Nav.Link>
             <Nav.Link as={Link} to="/">

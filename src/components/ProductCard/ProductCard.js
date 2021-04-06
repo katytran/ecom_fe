@@ -9,7 +9,7 @@ function ProductCard({ product }) {
   console.log(arrayPicture, arrayPicture);
   let navigate = useNavigate();
   const handleClick = () => {
-    navigate(`makeup/products/${product._id}`);
+    navigate(`/products/${product._id}`);
   };
   return (
     <Col xl={2} md={3} sm={4} xs={4}>

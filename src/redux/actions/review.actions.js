@@ -48,6 +48,8 @@ const getReviewOneProduct = (
 ) => async (dispatch) => {
   dispatch({ type: types.GET_ALL_REVIEW_REQUEST });
   try {
+    let pageNum2 = pageNum || 1;
+
     console.log("produc id", productId);
     let queryString = "";
     let filter2 = "";
@@ -57,7 +59,7 @@ const getReviewOneProduct = (
     }
 
     let sortByString = "";
-    if (sortBy?.key) {
+    if (sortBy) {
       // sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
       sortByString = sortBy;
     }
@@ -67,7 +69,7 @@ const getReviewOneProduct = (
     }
 
     const res = await api.get(
-      `/review?productId=${productId}&page=${pageNum}&limit=${limit}&query=${queryString}$sortby=${sortByString}&filter=${filter2}`
+      `/review?productId=${productId}&page=${pageNum2}&limit=${limit}&query=${queryString}&sortBy=${sortByString}&filter=${filter2}`
     );
     dispatch({
       type: types.GET_ALL_REVIEW_SUCCESS,

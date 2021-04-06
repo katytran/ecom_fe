@@ -11,8 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function RatingBar({ reviews, productId }) {
   const orders = useSelector((state) => state.order.orders);
   const reviewsList = useSelector((state) => state.review.reviews);
-  const [isVerified, setisVerified] = useState({});
-  const [pageNum, setPageNum] = useState(0);
+  const [isVerified, setisVerified] = useState(false);
+  const [pageNum, setPageNum] = useState(1);
+  const [sortBy, setSortby] = useState("newest");
   const totalPages = useSelector((state) => state.review.totalPages);
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
@@ -20,11 +21,9 @@ function RatingBar({ reviews, productId }) {
   const limit = 5;
 
   useEffect(() => {
+    console.log("get reviews dii");
     dispatch(reviewActions.getReviewOneProduct(productId, pageNum, limit));
   }, [dispatch, productId, pageNum, limit]);
-
-  console.log("orders", orders);
-  console.log("reviews", reviews);
 
   const getArrayRatingNum = (num) => {
     const array = reviews.filter((review) => review.rating === num);
@@ -49,14 +48,18 @@ function RatingBar({ reviews, productId }) {
   }, [reviewsList]);
 
   useEffect(() => {
-    let oldOrder = {};
-    for (let i = 0; i < orders.length; i++) {
-      console.log("product id", productId);
-      oldOrder = orders[i].products.find(
-        (product) => product._id === productId
-      );
+    let oldOrder = [];
+    if (orders) {
+      for (let i = 0; i < orders.length; i++) {
+        console.log("product id", productId);
+        oldOrder = orders[i].products.find(
+          (product) => product._id === productId
+        );
+      }
+      if (oldOrder.length !== 0) {
+        setisVerified(true);
+      }
     }
-    setisVerified(oldOrder);
   }, [productId, orders]);
 
   const bar1 = Math.floor((getArrayRatingNum(1).length / totalRating) * 100);
@@ -71,6 +74,20 @@ function RatingBar({ reviews, productId }) {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+  };
+
+  const sortbyChangeHandler = (productId, pageNum, limit, query, sortByy) => {
+    setSortby(sortByy);
+    console.log("sort by", sortByy);
+    dispatch(
+      reviewActions.getReviewOneProduct(
+        productId,
+        pageNum,
+        limit,
+        query,
+        sortByy
+      )
+    );
   };
 
   const handleSubmit = (e) => {
@@ -101,6 +118,7 @@ function RatingBar({ reviews, productId }) {
     width: `${bar5}%`,
   };
 
+  console.log("verified", isVerified);
   return (
     <Fragment>
       {!reviews ? (
@@ -196,20 +214,20 @@ function RatingBar({ reviews, productId }) {
             </form>
             <select
               onChange={(e) =>
-                reviewActions.getReviewOneProduct(
+                sortbyChangeHandler(
                   productId,
                   pageNum,
                   limit,
-                  "",
+                  query,
                   e.target.value
                 )
               }
+              value={sortBy}
             >
-              <option>Sort By</option>
+              <option value="newest">Newest rating</option>
+              <option value="oldest">Oldest rating</option>
               <option value="highest">Highest rating</option>
               <option value="lowest">Lowest rating</option>
-              <option value="oldest">Oldest rating</option>
-              <option value="newest">Newest rating</option>
             </select>
           </div>
 
