@@ -58,17 +58,22 @@ function RatingBar({ reviews, productId }) {
   useEffect(() => {
     let oldOrder = [];
     if (orders) {
+      console.log("orders", orders);
       for (let i = 0; i < orders.length; i++) {
         console.log("product id", productId);
+
+        console.log("old before", oldOrder);
         oldOrder = orders[i].products.find(
           (product) => product._id === productId
         );
-      }
-      if (oldOrder.length !== 0) {
-        setisVerified(true);
+        console.log("old after", oldOrder);
       }
     }
-  }, [productId, orders]);
+    if (oldOrder !== undefined && oldOrder.length !== 0) {
+      setisVerified(true);
+    }
+    console.log("old order final", oldOrder);
+  }, [productId, orders, isVerified]);
 
   const bar1 = Math.floor((getArrayRatingNum(1).length / totalRating) * 100);
   const bar2 = Math.floor((getArrayRatingNum(2).length / totalRating) * 100);
