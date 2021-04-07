@@ -94,32 +94,8 @@ function LoginPage2() {
         <div className="form-container sign-in-container">
           <form action="#" onSubmit={handleSubmit}>
             <h1>Sign in</h1>
+
             <div className="social-container">
-              <FacebookLogin
-                style={{
-                  border: "1px solid transparent",
-                  borderRadius: "40px",
-                }}
-                appId={FB_APP_ID}
-                icon="fa-facebook"
-                fields="name,email,picture"
-                callback={(u) => oauthLogin(u, "facebook")}
-                onFailure={() => console.log("Facebook Login Failure")}
-              />
-
-              <GoogleLogin
-                style={{
-                  height: "38px",
-                  width: "260px",
-                  marginTop: "10px !important",
-                  paddingLeft: "20px",
-                }}
-                clientId={GOOGLE_CLIENT_ID}
-                buttonText="Login with Google"
-                onSuccess={(u) => oauthLogin(u, "google")}
-                onFailure={() => console.log("Google Login Failure")}
-              />
-
               {/*     <a hreft="#" className="social">
                 <FontAwesomeIcon icon={faFacebookF}></FontAwesomeIcon>
               </a>
@@ -128,6 +104,25 @@ function LoginPage2() {
             </a> */}
             </div>
             <span>or use your account</span>
+            <FacebookLogin
+              style={{
+                border: "1px solid transparent",
+                borderRadius: "40px",
+              }}
+              appId={FB_APP_ID}
+              icon="fa-facebook"
+              fields="name,email,picture"
+              callback={(u) => oauthLogin(u, "facebook")}
+              onFailure={() => console.log("Facebook Login Failure")}
+            />
+
+            <GoogleLogin
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Login with Google"
+              onSuccess={(u) => oauthLogin(u, "google")}
+              onFailure={() => console.log("Google Login Failure")}
+            />
+
             <input
               type="email"
               placeholder="Email"

@@ -21,7 +21,6 @@ function RatingBar({ reviews, productId }) {
   const limit = 5;
 
   useEffect(() => {
-    console.log("get reviews dii");
     dispatch(reviewActions.getReviewOneProduct(productId, pageNum, limit));
   }, [dispatch, productId, pageNum, limit]);
 
@@ -50,7 +49,7 @@ function RatingBar({ reviews, productId }) {
         sortBy
       )
     );
-  }, [dispatch]);
+  }, [dispatch, productId, pageNum, limit, query, sortBy]);
 
   useEffect(() => {
     setArrayReview(reviewsList);
@@ -86,6 +85,7 @@ function RatingBar({ reviews, productId }) {
   };
 
   const sortbyChangeHandler = (productId, pageNum, limit, query, sortByy) => {
+    setSortby(sortByy);
     dispatch(
       reviewActions.getReviewOneProduct(
         productId,

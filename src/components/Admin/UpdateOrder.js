@@ -8,6 +8,7 @@ import { Row, Col, Form } from "react-bootstrap";
 import orderActions from "../../redux/actions/order.actions";
 import Typography from "@material-ui/core/Typography";
 import { Grid } from "@material-ui/core";
+import Button from "react-bootstrap/Button";
 
 function UpdateOrder() {
   const { id } = useParams();
@@ -25,6 +26,11 @@ function UpdateOrder() {
   const deliverChangeHandler = (result) => {
     console.log("result", result);
     setDeliver(result);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log("result", deliver);
   };
   return (
     <Container className="pt-5">
@@ -118,6 +124,20 @@ function UpdateOrder() {
                 <option value="false">Not Delivered</option>
                 <option value="true">Delivered</option>
               </Form.Control>
+              <Form.Group
+                as={Col}
+                controlId="formGridCity"
+                className="mt-3 text-end"
+              >
+                <Button
+                  variant="warning"
+                  type="submit"
+                  size="sm"
+                  onClick={handleClick}
+                >
+                  Update product
+                </Button>
+              </Form.Group>
             </Form.Group>
           </Form.Row>
         </Form>

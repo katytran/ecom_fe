@@ -16,6 +16,7 @@ const StyledRating = withStyles({
 })(Rating);
 
 function ReviewCard({ review }) {
+  console.log("review in card", review);
   return (
     <Container className="py-1">
       {!review ? (
