@@ -59,16 +59,16 @@ const payOrder = (orderId, paymentResult) => async (dispatch) => {
 };
 
 const getMyOrder = () => async (dispatch) => {
-  dispatch({ type: types.GET_ALL_ORDER_REQUEST, payload: null });
+  dispatch({ type: types.GET_MY_ORDER_REQUEST, payload: null });
   try {
     const res = await api.get(`orders/myorders`);
     dispatch({
-      type: types.GET_ALL_ORDER_SUCCESS,
+      type: types.GET_MY_ORDER_SUCCESS,
       payload: res.data.data,
     });
   } catch (error) {
     dispatch({
-      type: types.GET_ALL_ORDER_FAILURE,
+      type: types.GET_MY_ORDER_FAILURE,
       payload: error,
     });
   }
