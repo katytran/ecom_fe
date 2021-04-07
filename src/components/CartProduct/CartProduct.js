@@ -35,10 +35,7 @@ function CartProduct({ product }) {
             />
           </div>
 
-          <Link
-            to={`/makeup/products/${product._id}`}
-            className="cartproduct__name"
-          >
+          <Link to={`/products/${product._id}`} className="cartproduct__name">
             <p>{product.name}</p>
           </Link>
 

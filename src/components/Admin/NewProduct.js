@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
-import Resizer from "react-image-file-resizer";
 import Col from "react-bootstrap/Col";
+import { toast } from "react-toastify";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../api";
+
 import productActions from "../../redux/actions/product.actions";
 
 function NewProduct() {
@@ -91,6 +91,15 @@ function NewProduct() {
     e.preventDefault();
     console.log("form data", formData);
     dispatch(productActions.addProduct(formData));
+    toast.success("🦄 Updated!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (

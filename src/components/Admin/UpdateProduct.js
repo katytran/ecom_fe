@@ -94,6 +94,15 @@ function UpdateProduct() {
     console.log("form data", formData);
     try {
       dispatch(productActions.updateproduct(formData));
+      toast.success("🦄 Updated Product!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       navigate("/admin/dashboard");
     } catch (e) {}
   };
@@ -102,6 +111,15 @@ function UpdateProduct() {
     e.preventDefault();
     try {
       dispatch(productActions.deleteproduct(id));
+      toast.success("🦄 Deleted product!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       navigate("/admin/dashboard");
     } catch (e) {}
   };

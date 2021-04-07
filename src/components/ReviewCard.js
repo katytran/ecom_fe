@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import "./ReviewCard.css";
 import DayJS from "react-dayjs";
+import moment from "moment";
 import { withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import FavoriteIcon from "@material-ui/icons/Favorite";
@@ -24,11 +25,7 @@ function ReviewCard({ review }) {
       ) : (
         <div class="review_card">
           <div>
-            <p>
-              <DayJS format="MM-DD-YYYY" asString={true}>
-                {review.createdAt}
-              </DayJS>
-            </p>
+            <p>{moment(review.createdAt).format("LL")}</p>
             <p
               class="card-text"
               style={{ fontWeight: "bold", textTransform: "capitalize" }}
@@ -37,7 +34,7 @@ function ReviewCard({ review }) {
             </p>
             <StyledRating
               name="rating"
-              defaultValue={review.rating}
+              value={review.rating}
               icon={<FavoriteIcon fontSize="inherit" />}
             />
           </div>
