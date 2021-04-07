@@ -4,26 +4,32 @@ import { useNavigate, useParams, Link, Navigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import DayJS from "react-dayjs";
-
+import { Row, Col, Form } from "react-bootstrap";
 import orderActions from "../../redux/actions/order.actions";
 import Typography from "@material-ui/core/Typography";
+import { Grid } from "@material-ui/core";
 
-import Grid from "@material-ui/core/Grid";
-function OrderHistoryCard() {
+function UpdateOrder() {
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(orderActions.getOrderDetail(id));
   }, [dispatch, id]);
   const order = useSelector((state) => state.order.order);
+  const [deliver, setDeliver] = useState("false");
   const products = order ? order.products : [];
   const { shippingAddress } = order;
   console.log("products", products);
   console.log("shipping", shippingAddress);
+
+  const deliverChangeHandler = (result) => {
+    console.log("result", result);
+    setDeliver(result);
+  };
   return (
     <Container className="pt-5">
       <div className="text-center py-4" style={{ fontSize: "20px" }}>
-        Product Detail
+        Update Delivered
       </div>
       {products &&
         products.map((product) => (
@@ -99,9 +105,25 @@ function OrderHistoryCard() {
           </Grid>
         </Grid>
         <hr></hr>
+        <Form>
+          <Form.Row>
+            <Form.Group as={Col} controlId="formGridCity">
+              <Form.Label>Delivered?</Form.Label>
+
+              <Form.Control
+                as="select"
+                onChange={(e) => deliverChangeHandler(e.target.value)}
+                value={deliver}
+              >
+                <option value="false">Not Delivered</option>
+                <option value="true">Delivered</option>
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+        </Form>
       </div>
     </Container>
   );
 }
 
-export default OrderHistoryCard;
+export default UpdateOrder;

@@ -1,15 +1,47 @@
-import React, { useState, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Resizer from "react-image-file-resizer";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
+import React, { useRef, useState, useEffect, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../api";
+import { Container, Row, Col, Form } from "react-bootstrap";
+import "./App.css";
+import arrowleft from "../../images/arrowleft.png";
+import arrowright from "../../images/arrowright.png";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import ProductPicture from "../../components/ProductPicture";
+import { useParams } from "react-router-dom";
 import productActions from "../../redux/actions/product.actions";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
-function NewProduct() {
+function UpdateProduct() {
+  const { id } = useParams();
+  console.log("id", id);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const product = useSelector((state) => state.products.selectedProduct);
+  useEffect(() => {
+    dispatch(productActions.getSingleProduct(id));
+  }, [id, dispatch]);
+
+  // console.log("product ne", product);
+  // const arrayPicture = product
+  //   ? ProductPicture(product.category.name)
+  //   : ProductPicture("foundation-makeup");
+
+  const arrayPicture = ProductPicture("foundation-makeup");
+
+  console.log("product", product);
+  const slider = useRef();
+  const featured = useRef();
+  const [selectedItem, setSelectedItem] = useState(0);
+
+  const determineItemStyle = (index) => {
+    const isItemSelected = selectedItem === index;
+    return isItemSelected ? "thumbnail active" : "thumbnail";
+  };
+
   const [category, setCategory] = useState("foundation-makeup");
   const [formData, setFormData] = useState({
+    id: id,
     name: "",
     brand: "",
     description: "",
@@ -18,9 +50,8 @@ function NewProduct() {
     images: [],
     ingredients: "",
     countInStock: "",
+    countSold: "",
   });
-
-  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,35 +78,6 @@ function NewProduct() {
     );
 
     console.log("data", formData);
-    /*console.log(e.target.files);
-    let files = e.target.files;
-    let allUploadedFiles = [];
-    if (files) {
-      for (let i = 0; i < files.length; i++) {
-        Resizer.imageFileResizer(
-          files[i],
-          720,
-          720,
-          "JPEG",
-          100,
-          0,
-          async (uri) => {
-            console.log("uri", uri);
-            try {
-              const res = await api.post(`cloudinary/uploadimages`, {
-                image: uri,
-              });
-              console.log("IMAGE UPLOAD RES DATA", res);
-              allUploadedFiles.push(res.data);
-              setFormData({ ...formData, images: allUploadedFiles });
-            } catch (e) {
-              console.log("CLOUDINARY UPLOAD ERR", e);
-            }
-          },
-          "base64"
-        );
-      }
-    } */
   };
 
   const categoryChangeHandler = (category) => {
@@ -90,16 +92,31 @@ function NewProduct() {
   const handleClick = (e) => {
     e.preventDefault();
     console.log("form data", formData);
-    dispatch(productActions.addProduct(formData));
+    try {
+      dispatch(productActions.updateproduct(formData));
+      navigate("/admin/dashboard");
+    } catch (e) {}
+  };
+
+  const handleClickDelete = (e) => {
+    e.preventDefault();
+    try {
+      dispatch(productActions.deleteproduct(id));
+      navigate("/admin/dashboard");
+    } catch (e) {}
   };
 
   return (
-    <div>
-      <div id="page-content-wrapper">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <h1>Add New product</h1>
+    <Fragment>
+      {!product ? (
+        <div>loading</div>
+      ) : (
+        <Container className="pt-5 review">
+          <div className="text-center" style={{ fontSize: "2em" }}>
+            {`Update product`}
+          </div>
+          <Row className="mt-5">
+            <Col md={6} className="justify-center pt-3">
               <Form>
                 <Form.Row>
                   <Form.Group as={Col} controlId="formGridEmail">
@@ -162,11 +179,20 @@ function NewProduct() {
                   />
                   <Form.Label>Number of items</Form.Label>
                   <Form.Control
-                    placeholder="42"
+                    placeholder="10000"
                     type="number"
                     required
                     name="countInStock"
                     value={formData.countInStock}
+                    onChange={handleChange}
+                  />
+                  <Form.Label>Number of sold items</Form.Label>
+                  <Form.Control
+                    placeholder="3672"
+                    type="number"
+                    required
+                    name="countSold"
+                    value={formData.countSold}
                     onChange={handleChange}
                   />
                 </Form.Group>
@@ -208,36 +234,104 @@ function NewProduct() {
                       <option value="face-mask">Mask</option>
                     </Form.Control>
                   </Form.Group>
-
+                </Form.Row>
+                <Form.Row>
                   <Form.Group as={Col} controlId="formGridState">
-                    {/* <label className="btn btn-success mt-4 ml-5">
-                      Choose File
-                      <input
-                        type="file"
-                        multiple
-                        accept="images/*"
-                        hidden
-                        onChange={handleChooseFile}
-                      />
-                    </label>  */}
                     <Button onClick={handleChooseFile}>Choose Images</Button>
                   </Form.Group>
-                  <Button
-                    variant="warning"
-                    type="submit"
-                    size="sm"
-                    onClick={handleClick}
-                  >
-                    Create product
-                  </Button>
+                  <Form.Group as={Col} controlId="formGridState">
+                    <Button
+                      variant="warning"
+                      type="submit"
+                      size="sm"
+                      onClick={handleClick}
+                    >
+                      Update product
+                    </Button>
+                  </Form.Group>
+                  <Form.Group as={Col} controlId="formGridState">
+                    <Button
+                      variant="danger"
+                      type="submit"
+                      size="sm"
+                      onClick={handleClickDelete}
+                    >
+                      Delete product
+                    </Button>
+                  </Form.Group>
                 </Form.Row>
               </Form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </Col>
+            <Col md={6} className="pl-3">
+              <div id="content-wrapper pt-3">
+                <div className="column">
+                  <h5 className="text-center">{product.brand}</h5>
+                  <h5
+                    className="text-center"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {product.name}
+                  </h5>
+                  <div className="wrap">
+                    <img
+                      alt={"arrowleft"}
+                      id="slideLeft"
+                      className="arrow arrowLeft"
+                      src={arrowleft}
+                      onClick={() => {
+                        if (selectedItem > 0) {
+                          setSelectedItem(selectedItem - 1);
+                        } else {
+                          setSelectedItem(product.images.length - 1);
+                        }
+                      }}
+                    />
+                    <img
+                      alt={"mainpic"}
+                      id="featured"
+                      src={product.images[selectedItem]}
+                      ref={featured}
+                    />
+                    <img
+                      alt="arrowright"
+                      id="slideRight"
+                      className="arrow arrowRight"
+                      src={arrowright}
+                      onClick={() => {
+                        if (selectedItem < product.images.length - 1) {
+                          setSelectedItem(selectedItem + 1);
+                        } else {
+                          setSelectedItem(0);
+                        }
+                      }}
+                    />
+                  </div>
+                  <div id="slide-wrapper">
+                    <div id="slider" ref={slider}>
+                      {product.images.map((image, index) => (
+                        <div key={index}>
+                          <img
+                            alt={`pic${index}`}
+                            className={determineItemStyle(index)}
+                            src={image}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = arrayPicture[index];
+                            }}
+                            onClick={() => setSelectedItem(index)}
+                          ></img>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </Fragment>
   );
 }
 
-export default NewProduct;
+export default UpdateProduct;

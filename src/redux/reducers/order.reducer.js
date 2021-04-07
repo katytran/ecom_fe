@@ -25,7 +25,7 @@ export const orderReducer = (state = initialState, action) => {
     case types.GET_SINGLE_ORDER_SUCCESS:
       return { ...state, loading: false, order: payload.order };
     case types.GET_ALL_ORDER_SUCCESS:
-      return { ...state, loading: false, orders: payload.order };
+      return { ...state, loading: false, orders: payload.requestedOrders };
     case types.ORDER_DELETE_FAILURE:
     case types.ORDER_CREATE_FAILURE:
     case types.PAY_ORDER_FAILURE:

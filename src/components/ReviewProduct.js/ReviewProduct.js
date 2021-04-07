@@ -15,7 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import reviewActions from "../../redux/actions/review.actions";
-
+import { useNavigate } from "react-router-dom";
 const StyledRating = withStyles({
   iconFilled: {
     color: "#ff6d75",
@@ -28,6 +28,7 @@ const StyledRating = withStyles({
 function ReviewProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const product = useSelector((state) => state.products.selectedProduct);
   const [formData, setFormData] = useState({
     rating: 0,
@@ -58,14 +59,17 @@ function ReviewProduct() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(
-      reviewActions.createReview(
-        id,
-        formData.title,
-        formData.rating,
-        formData.body
-      )
-    );
+    try {
+      dispatch(
+        reviewActions.createReview(
+          id,
+          formData.title,
+          formData.rating,
+          formData.body
+        )
+      );
+      navigate(`/review/success/${id}`);
+    } catch (e) {}
   };
   return (
     <Fragment>

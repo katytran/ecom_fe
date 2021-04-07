@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams, Link, Navigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
-import reviewActions from "../redux/actions/review.actions";
 import "./ReviewCard.css";
+import DayJS from "react-dayjs";
+import { withStyles } from "@material-ui/core/styles";
+import Rating from "@material-ui/lab/Rating";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
+const StyledRating = withStyles({
+  iconFilled: {
+    color: "#ff6d75",
+  },
+  iconHover: {
+    color: "#ff3d47",
+  },
+})(Rating);
 
 function ReviewCard({ review }) {
   return (
@@ -13,9 +23,22 @@ function ReviewCard({ review }) {
       ) : (
         <div class="review_card">
           <div>
-            <p>time</p>
-            <p class="card-text">{review.user.name}</p>
-            <p class="card-text">{review.rating} stars</p>
+            <p>
+              <DayJS format="MM-DD-YYYY" asString={true}>
+                {review.createdAt}
+              </DayJS>
+            </p>
+            <p
+              class="card-text"
+              style={{ fontWeight: "bold", textTransform: "capitalize" }}
+            >
+              {review.user.name}
+            </p>
+            <StyledRating
+              name="rating"
+              defaultValue={review.rating}
+              icon={<FavoriteIcon fontSize="inherit" />}
+            />
           </div>
           <div>
             <h5 class="card-title">{review.title}</h5>

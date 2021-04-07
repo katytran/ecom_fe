@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import EnhancedTable from "./EnhancedTable";
 import NewProduct from "./NewProduct";
+import OrderList from "./OrderList";
 import ProductList from "./ProductList";
 import UserList from "./UserList";
 
 function Dashboard() {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState("ProductList");
 
   return (
     <div className="dashboard">
@@ -41,7 +41,9 @@ function Dashboard() {
             </li>
             <li>
               <div>
-                <button>Overview</button>
+                <button onClick={() => setContent("OrderList")}>
+                  Order List
+                </button>
               </div>
             </li>
             <li>
@@ -55,6 +57,8 @@ function Dashboard() {
           <ProductList />
         ) : content === "UserList" ? (
           <UserList />
+        ) : content === "OrderList" ? (
+          <OrderList />
         ) : (
           <NewProduct />
         )}

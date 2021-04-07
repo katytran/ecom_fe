@@ -41,6 +41,15 @@ function RatingBar({ reviews, productId }) {
 
   useEffect(() => {
     dispatch(orderActions.getMyOrder());
+    dispatch(
+      reviewActions.getReviewOneProduct(
+        productId,
+        pageNum,
+        limit,
+        query,
+        sortBy
+      )
+    );
   }, [dispatch]);
 
   useEffect(() => {
@@ -77,8 +86,6 @@ function RatingBar({ reviews, productId }) {
   };
 
   const sortbyChangeHandler = (productId, pageNum, limit, query, sortByy) => {
-    setSortby(sortByy);
-    console.log("sort by", sortByy);
     dispatch(
       reviewActions.getReviewOneProduct(
         productId,
@@ -202,33 +209,37 @@ function RatingBar({ reviews, productId }) {
             )}
           </div>
 
-          <div>
-            <form className="input-wrap" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="input-text"
-                onChange={handleChange}
-              ></input>
-              <FontAwesomeIcon className="iconSearch" icon={faSearch} />
-            </form>
-            <select
-              onChange={(e) =>
-                sortbyChangeHandler(
-                  productId,
-                  pageNum,
-                  limit,
-                  query,
-                  e.target.value
-                )
-              }
-              value={sortBy}
-            >
-              <option value="newest">Newest rating</option>
-              <option value="oldest">Oldest rating</option>
-              <option value="highest">Highest rating</option>
-              <option value="lowest">Lowest rating</option>
-            </select>
+          <div className="d-flex justify-content-between align-items-center mb-5">
+            <div>
+              <form className="input-wrap" onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="input-text"
+                  onChange={handleChange}
+                ></input>
+                <FontAwesomeIcon className="iconSearch" icon={faSearch} />
+              </form>
+            </div>
+            <div>
+              <select
+                onChange={(e) =>
+                  sortbyChangeHandler(
+                    productId,
+                    pageNum,
+                    limit,
+                    query,
+                    e.target.value
+                  )
+                }
+                value={sortBy}
+              >
+                <option value="newest">Newest rating</option>
+                <option value="oldest">Oldest rating</option>
+                <option value="highest">Highest rating</option>
+                <option value="lowest">Lowest rating</option>
+              </select>
+            </div>
           </div>
 
           {arrayReview &&

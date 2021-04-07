@@ -96,11 +96,28 @@ const resetOrderPay = () => async (dispatch) => {
   });
 };
 
+const getAllOrder = () => async (dispatch) => {
+  dispatch({ type: types.GET_ALL_ORDER_REQUEST, payload: null });
+  try {
+    const res = await api.get(`/orders`);
+    dispatch({
+      type: types.GET_ALL_ORDER_SUCCESS,
+      payload: res.data.data,
+    });
+  } catch (error) {
+    dispatch({
+      type: types.GET_ALL_ORDER_FAILURE,
+      payload: error,
+    });
+  }
+};
+
 const orderActions = {
   createOrder,
   payOrder,
   getOrderDetail,
   resetOrderPay,
   getMyOrder,
+  getAllOrder,
 };
 export default orderActions;

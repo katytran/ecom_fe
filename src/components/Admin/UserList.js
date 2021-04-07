@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { MDBDataTable } from "mdbreact";
 import authActions from "../../redux/actions/auth.actions";
 import { useSelector, useDispatch } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
+
 const capitalizeFirstLetters = (words) => {
   let tempWords = words.split(" ");
   tempWords = tempWords.map((word) => word[0].toUpperCase() + word.slice(1));
@@ -11,6 +13,7 @@ const capitalizeFirstLetters = (words) => {
 function UserList() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.auth.users);
+  const loading = useSelector((state) => state.auth.loading);
   useEffect(() => {
     dispatch(authActions.getAllUser());
   }, []);
@@ -57,16 +60,20 @@ function UserList() {
 
   return (
     <div>
-      <div id="page-content-wrapper">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <h1>User List</h1>
-              <MDBDataTable searchTop striped bordered small data={data} />
+      {loading ? (
+        <ClipLoader loading={loading} size={30} />
+      ) : (
+        <div id="page-content-wrapper">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <h1>User List</h1>
+                <MDBDataTable searchTop striped bordered small data={data} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

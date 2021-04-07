@@ -78,16 +78,10 @@ const getSingleProduct = (productId) => async (dispatch) => {
   }
 };
 
-const addProduct = (
-  name,
-  description,
-  brand,
-  price,
-  category,
-  images
-) => async (dispatch) => {
+const addProduct = (formData) => async (dispatch) => {
   dispatch({ type: types.ADD_PRODUCT_REQUEST, payload: null });
   try {
+    console.log("Add product", formData);
     // For uploading file manually
     // const formData = new FormData();
     // formData.append("title", title);
@@ -102,12 +96,14 @@ const addProduct = (
     // Upload images using cloudinary already
 
     const res = await api.post("/products/add", {
-      name,
-      description,
-      brand,
-      price,
-      category,
-      images,
+      name: formData.name,
+      brand: formData.brand,
+      description: formData.description,
+      price: formData.price,
+      category: formData.category,
+      images: formData.images,
+      ingredients: formData.ingredients,
+      countInStock: formData.countInStock,
     });
 
     dispatch({
@@ -117,24 +113,26 @@ const addProduct = (
 
     //dispatch(routeActions.redirect("__GO_BACK__"));
     toast.success("product created");
-    dispatch(productActions.productsRequest());
+    //dispatch(productActions.productsRequest());
   } catch (error) {
     dispatch({ type: types.ADD_PRODUCT_FAILURE, payload: error });
   }
 };
 
-const updateproduct = (productId, title, content, images) => async (
-  dispatch
-) => {
+const updateproduct = (formData) => async (dispatch) => {
   dispatch({ type: types.UPDATE_PRODUCT_REQUEST, payload: null });
   try {
-    // let formData = new FormData();
-    // formData.set("title", title);
-    // formData.set("content", content);
-    const res = await api.put(`/products/${productId}`, {
-      title,
-      content,
-      images,
+    const res = await api.put(`/products/${formData.id}/update`, {
+      id: formData.id,
+      name: formData.name,
+      brand: formData.brand,
+      description: formData.description,
+      price: formData.price,
+      category: formData.category,
+      images: formData.images,
+      ingredients: formData.ingredients,
+      countInStock: formData.countInStock,
+      countSold: formData.countSold,
     });
 
     dispatch({
@@ -151,7 +149,7 @@ const updateproduct = (productId, title, content, images) => async (
 const deleteproduct = (productId) => async (dispatch) => {
   dispatch({ type: types.DELETE_PRODUCT_REQUEST, payload: null });
   try {
-    const res = await api.delete(`/products/${productId}`);
+    const res = await api.delete(`/products/${productId}/delete`);
     console.log(res);
     dispatch({
       payload: res.data,

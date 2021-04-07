@@ -22,6 +22,11 @@ import Dashboard from "./components/Admin/Dashboard";
 import MakeupPage from "./pages/MakeupPage/MakeupPage";
 import ReviewProduct from "./components/ReviewProduct.js/ReviewProduct";
 import SkincarePage from "./pages/SkincarePage/SkincarePage";
+import Footer from "./components/Footer/Footer";
+import BeautyCommunity from "./pages/BeautyCommunity/BeautyCommunity";
+import ReviewSuccess from "./components/ReviewProduct.js/ReviewSuccess";
+import UpdateProduct from "./components/Admin/UpdateProduct";
+import UpdateOrder from "./components/Admin/UpdateOrder";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,10 +43,12 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/cart" element={<CartPage2 />} />
         <Route path="/makeup" element={<MakeupPage />} />
-
+        <Route path="/product/:id/update" element={<UpdateProduct />} />
+        <Route path="/order/:id/update" element={<UpdateOrder />} />
         <Route path="/products/:productId" element={<DetailProductPage />} />
+        <Route path="/review/success/:id" element={<ReviewSuccess />} />
         <Route path="/skincare" element={<SkincarePage />} />
-
+        <Route path="/community" element={<BeautyCommunity />} />
         <Route path="addReview/product/:id" element={<ReviewProduct />} />
         <Route path="/checkout/shipping" element={<AddressForm />} />
         <Route path="/checkout/payment" element={<PaymentForm />} />
@@ -50,12 +57,14 @@ function App() {
           path="/checkout/order/success/:id"
           element={<PaymentSuccess />}
         />
+
         <Route path="/checkout/order/:orderId" element={<PaymentProcess />} />
         <Route path="/myorders/:id" element={<OrderHistoryCard />} />
         <Route path="/myorders" element={<OrderHistoryPage />} />
         <Route path="/admin/dashboard" element={<Dashboard />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
