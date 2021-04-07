@@ -8,7 +8,7 @@ function Footer() {
         <div className="container">
           <div className="row">
             <div className="col-xs-6 col-md-3">
-              <h6>Quick Links</h6>
+              <h6>EMBECA</h6>
               <ul className="footer-links">
                 <li>
                   <a href="#">About Us</a>
@@ -29,47 +29,37 @@ function Footer() {
             </div>
 
             <div className="col-xs-6 col-md-3">
-              <h6>Quick Links</h6>
+              <h6>HELP</h6>
               <ul className="footer-links">
                 <li>
-                  <a href="#">About Us</a>
+                  <a href="#">Customer Service</a>
                 </li>
                 <li>
-                  <a href="#">Contact Us</a>
+                  <a href="#">{`Return & Exchanges`}</a>
                 </li>
                 <li>
-                  <a href="#">Contribute</a>
+                  <a href="#">Store Locations</a>
                 </li>
                 <li>
                   <a href="#">Privacy Policy</a>
                 </li>
                 <li>
-                  <a href="#">Sitemap</a>
+                  <a href="#">Shipping</a>
                 </li>
               </ul>
             </div>
 
             <div className="col-xs-6 col-md-3">
-              <h6>Quick Links</h6>
+              <h6>My EMBECA</h6>
               <ul className="footer-links">
                 <li>
-                  <a href="http://scanfcode.com/about/">About Us</a>
+                  <a href="#">Order Status</a>
                 </li>
                 <li>
-                  <a href="http://scanfcode.com/contact/">Contact Us</a>
+                  <a href="#">Purchase History</a>
                 </li>
                 <li>
-                  <a href="http://scanfcode.com/contribute-at-scanfcode/">
-                    Contribute
-                  </a>
-                </li>
-                <li>
-                  <a href="http://scanfcode.com/privacy-policy/">
-                    Privacy Policy
-                  </a>
-                </li>
-                <li>
-                  <a href="http://scanfcode.com/sitemap/">Sitemap</a>
+                  <a href="#">Loves</a>
                 </li>
               </ul>
             </div>
