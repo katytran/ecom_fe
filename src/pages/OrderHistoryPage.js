@@ -18,7 +18,7 @@ function OrderHistoryPage() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div style={{ minHeight: "100vh" }}>
       {loading ? (
         <div>Loading</div>
       ) : (
