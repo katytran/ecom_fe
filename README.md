@@ -1,4 +1,4 @@
-#  KATY MOVIE APP  *
+#  EMBECA ECOMMERCE APP  *
 
 Created with love by Katy Chi Tran ❤
   
