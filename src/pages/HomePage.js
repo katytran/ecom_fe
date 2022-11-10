@@ -15,12 +15,11 @@ function HomePage() {
   const [pageNum, setPageNum] = useState(1);
   const totalPages = useSelector((state) => state.products.totalPages);
   const limit = 12;
-  //const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const products = useSelector((state) => state.products.products);
   const loading = useSelector((state) => state.products.loading);
   const accessToken = useSelector((state) => state.auth.accessToken);
   const location = useLocation();
-  //=> '?foo=bar'
+
   useEffect(() => {
     const parsed = queryString.parse(location.search);
 
