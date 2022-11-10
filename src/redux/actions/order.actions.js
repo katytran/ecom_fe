@@ -47,9 +47,6 @@ const payOrder = (orderId, paymentResult) => async (dispatch) => {
       payload: res.data.data,
     });
 
-    // dispatch({
-    //   type: types.ORDER_RESET,
-    // });
   } catch (error) {
     dispatch({
       type: types.PAY_ORDER_FAILURE,
