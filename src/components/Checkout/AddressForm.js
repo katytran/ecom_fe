@@ -54,17 +54,14 @@ export default function AddressForm() {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.cartItems);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  console.log("cart", cart, "isau", isAuthenticated);
 
   useEffect(() => {
     if (!cart || !isAuthenticated) {
-      console.log("navigate");
       navigate("/cart");
     }
   }, [cart, isAuthenticated]);
 
   const addressForm = useSelector((state) => state.cart.addressForm);
-  console.log("address form", addressForm);
   const [formData, setFormData] = useState({
     firstName: addressForm.firstName,
     lastName: addressForm.lastName,
