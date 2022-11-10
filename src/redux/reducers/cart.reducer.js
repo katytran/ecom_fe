@@ -1,6 +1,5 @@
 import * as types from "../constants/cart.constants";
-// let cartItems = JSON.parse(localStorage.getItem("cart"));
-// if (!cartItems) cartItems = [];
+
 const initialState = {
   cartItems: localStorage.getItem("cart")
     ? JSON.parse(localStorage.getItem("cart"))
@@ -18,10 +17,7 @@ export const cartReducer = (state = initialState, action) => {
       const existItem = state.cartItems.find((x) => x.name === payload.name);
 
       if (existItem) {
-        console.log("exist item qty", existItem.qty);
-        console.log("payload", payload);
         payload.qty = Number(existItem.qty) + Number(payload.qty);
-        console.log("payload new", payload);
         return {
           ...state,
           cartItems: state.cartItems.map((x) =>
