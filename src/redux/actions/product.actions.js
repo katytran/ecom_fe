@@ -1,34 +1,7 @@
 import * as types from "../constants/product.constants";
 import api from "../../api";
-//import { routeActions } from "./route.actions";
 import { toast } from "react-toastify";
 
-/*const getAllProduct = (pageNum, limit, query, sortBy) => async (dispatch) => {
-  let pageNum = pageNum || 1;
-  let limit = limit || 20;
-  dispatch({ type: types.GET_ALL_PRODUCT_REQUEST, payload: null });
-  try {
-    let queryString = "";
-    if (query) {
-      //queryString = `&name[$regex]=${query}&name[$options]=i&brand[$regex]=${query}&brand[$options]=i`;
-      queryString = query;
-    }
-
-    let sortByString = "";
-    if (sortBy?.key) {
-      sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
-    }
-    const res = await api.get(
-      `/products?page=${pageNum}&limit=${limit}&query=${queryString}${sortByString}`
-    );
-    dispatch({
-      type: types.GET_ALL_PRODUCT_SUCCESS,
-      payload: res.data.data,
-    });
-  } catch (error) {
-    dispatch({ type: types.GET_ALL_PRODUCT_FAILURE, payload: error });
-  }
-}; */
 const getAllProduct = (pageNum, limit, query, sortBy, filter) => async (
   dispatch
 ) => {
@@ -37,7 +10,6 @@ const getAllProduct = (pageNum, limit, query, sortBy, filter) => async (
     let queryString = "";
     let filter2 = "";
     if (query) {
-      //queryString = `&name[$regex]=${query}&name[$options]=i&brand[$regex]=${query}&brand[$options]=i`;
       queryString = query;
     }
 
@@ -81,7 +53,6 @@ const getSingleProduct = (productId) => async (dispatch) => {
 const addProduct = (formData) => async (dispatch) => {
   dispatch({ type: types.ADD_PRODUCT_REQUEST, payload: null });
   try {
-    console.log("Add product", formData);
     // For uploading file manually
     // const formData = new FormData();
     // formData.append("title", title);
@@ -110,10 +81,8 @@ const addProduct = (formData) => async (dispatch) => {
       type: types.ADD_PRODUCT_SUCCESS,
       payload: res.data.data,
     });
-
-    //dispatch(routeActions.redirect("__GO_BACK__"));
     toast.success("product created");
-    //dispatch(productActions.productsRequest());
+    
   } catch (error) {
     dispatch({ type: types.ADD_PRODUCT_FAILURE, payload: error });
   }
@@ -139,8 +108,8 @@ const updateproduct = (formData) => async (dispatch) => {
       payload: res.data.data,
       type: types.UPDATE_PRODUCT_SUCCESS,
     });
-    //dispatch(routeActions.redirect("__GO_BACK__"));
     toast.success("product updated.");
+    
   } catch (error) {
     dispatch({ type: types.UPDATE_PRODUCT_FAILURE, payload: error });
   }
@@ -155,8 +124,8 @@ const deleteproduct = (productId) => async (dispatch) => {
       payload: res.data,
       type: types.DELETE_PRODUCT_SUCCESS,
     });
-    //dispatch(routeActions.redirect("__GO_BACK__"));
     toast.success("product deleted.");
+    
   } catch (error) {
     dispatch({ type: types.DELETE_PRODUCT_FAILURE, payload: error });
   }
