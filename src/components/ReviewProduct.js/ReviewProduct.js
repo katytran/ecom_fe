@@ -44,7 +44,6 @@ function ReviewProduct() {
     ? ProductPicture(product.category.name)
     : ProductPicture("foundation-makeup");
 
-  console.log("product", product);
   const slider = useRef();
   const featured = useRef();
   const [selectedItem, setSelectedItem] = useState(0);
