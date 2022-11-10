@@ -54,13 +54,11 @@ const getReviewOneProduct = (
     let queryString = "";
     let filter2 = "";
     if (query) {
-      //queryString = `&name[$regex]=${query}&name[$options]=i&brand[$regex]=${query}&brand[$options]=i`;
       queryString = query;
     }
 
     let sortByString = "";
     if (sortBy) {
-      // sortByString = `&sortBy[${sortBy.key}]=${sortBy.ascending}`;
       sortByString = sortBy;
     }
 
