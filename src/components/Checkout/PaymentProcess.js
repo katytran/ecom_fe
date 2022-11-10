@@ -53,8 +53,6 @@ export default function PaymentProcess() {
   const navigate = useNavigate();
   const order = useSelector((state) => state.order.order);
   const { orderId } = useParams();
-  console.log("order id", orderId);
-  console.log("is pad", order.isPaid);
   const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
 
@@ -70,18 +68,7 @@ export default function PaymentProcess() {
       };
       document.body.appendChild(script);
     };
-    // if (
-    //   !order ||
-    //   order.isPaid ||
-    //   //!order.isDelivered ||
-    //   (order && order._id !== orderId)
-    // ) {
-    //   //dispatch(orderActions.resetOrder();)
-    //   //dispatch(orderActions.getOrderDetail(orderId));
-    //   //dispatch({ type: ORDER_DELIVER_RESET });
 
-    //   console.log("reset ask later no good");
-    // } else {
     if (!order.isPaid) {
       if (!window.paypal) {
         addPayPalScript();
@@ -89,7 +76,7 @@ export default function PaymentProcess() {
         setSdkReady(true);
       }
     }
-    //}
+
   }, [dispatch, orderId, sdkReady, order]);
 
   useEffect(() => {
@@ -107,7 +94,6 @@ export default function PaymentProcess() {
 
   const handleSubmit = (e) => {};
   const handleSuccessPayment = (paymentResult) => {
-    console.log("payment", paymentResult);
     try {
       dispatch(orderActions.payOrder(orderId, paymentResult));
     } catch (e) {}
