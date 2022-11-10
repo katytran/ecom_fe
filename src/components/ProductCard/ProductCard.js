@@ -6,7 +6,7 @@ import ProductPicture from "../../components/ProductPicture";
 
 function ProductCard({ product }) {
   const arrayPicture = ProductPicture(product.category.name);
-  console.log(arrayPicture, arrayPicture);
+  
   let navigate = useNavigate();
   const handleClick = () => {
     navigate(`/products/${product._id}`);
