@@ -58,14 +58,9 @@ export default function PaymentForm() {
 
   useEffect(() => {
     if (!addressForm.firstName) {
-      console.log("navigate 2");
       navigate("/checkout/shipping");
     }
   }, [addressForm]);
-
-  // useEffect(() => {
-  //   dispatch(orderActions.resetOrderPay());
-  // }, [order]);
 
   const [value, setValue] = React.useState("paypal");
   const dispatch = useDispatch();
