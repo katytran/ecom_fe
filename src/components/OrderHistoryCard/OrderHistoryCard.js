@@ -18,8 +18,7 @@ function OrderHistoryCard() {
   const order = useSelector((state) => state.order.order);
   const products = order ? order.products : [];
   const { shippingAddress } = order;
-  console.log("products", products);
-  console.log("shipping", shippingAddress);
+
   return (
     <Container className="pt-5">
       <div className="text-center py-4" style={{ fontSize: "20px" }}>
