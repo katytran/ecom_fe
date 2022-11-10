@@ -11,7 +11,6 @@ import ProductPicture from "../../components/ProductPicture";
 import RatingBar from "./RatingBar";
 
 function DetailProduct({ product }) {
-  console.log("product", product);
   const slider = useRef();
   const featured = useRef();
   const dispatch = useDispatch();
@@ -44,11 +43,9 @@ function DetailProduct({ product }) {
         );
       } else {
         dispatch(cartActions.addToCart(product));
-        console.log("try to add");
       }
     } else {
       dispatch(cartActions.addToCart(product));
-      console.log("try to add");
     }
   };
   useEffect(() => {}, [dispatch, product, currentProduct]);
