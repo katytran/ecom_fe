@@ -27,7 +27,6 @@ const editCart = (productId, quantity, orderId) => async (
   dispatch,
   getState
 ) => {
-  console.log("prodyct edit", productId);
   if (quantity === 0) {
     dispatch({
       type: types.REMOVE_FROM_CART,
