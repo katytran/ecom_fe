@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faMinusSquare } from "@fortawesome/free-solid-svg-icons";
 import cartActions from "../../redux/actions/cart.actions";
 function CartProduct({ product }) {
@@ -49,12 +48,6 @@ function CartProduct({ product }) {
             }
             className="cartproduct__select"
           >
-            {/* {[...Array(product.countInStock).keys()].map((x) => (
-                <option key={x + 1} value={x + 1}>
-                  {x + 1}
-                </option>
-              ))} */}
-
             <option value="">--</option>
             {(() => {
               const options = [];
